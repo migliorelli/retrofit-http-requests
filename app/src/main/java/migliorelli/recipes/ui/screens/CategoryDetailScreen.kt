@@ -1,47 +1,48 @@
-package migliorelli.recipes.ui.components
+package migliorelli.recipes.ui.screens
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import migliorelli.recipes.models.Category
 
 @Composable
-fun CategoryItem(category: Category, navigateToDetail: () -> Unit) {
+fun CategoryDetailScreen(category: Category) {
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .clip(shape = RoundedCornerShape(20.dp))
-            .clickable { navigateToDetail() }
-            .padding(8.dp)
             .fillMaxSize()
-
+            .padding(16.dp)
     ) {
+        Text(text = category.strCategory, textAlign = TextAlign.Center)
 
         Image(
             painter = rememberAsyncImagePainter(category.strCategoryThumb),
             contentDescription = "${category.strCategory}-thumbnail",
             modifier = Modifier
-                .fillMaxSize()
+                .wrapContentSize()
                 .aspectRatio(1F)
         )
 
         Text(
-            text = category.strCategory,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(top = 4.dp)
+            text = category.strCategoryDescription,
+            textAlign = TextAlign.Justify,
+            modifier = Modifier.verticalScroll(rememberScrollState())
         )
-    }
-}
 
+
+    }
+
+}

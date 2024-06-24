@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,12 +18,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import migliorelli.recipes.models.Category
 import migliorelli.recipes.viewmodels.MainViewModel
 
 @Composable
-fun RecipeScreen(modifier: Modifier = Modifier) {
+fun RecipeScreen(
+    viewState: MainViewModel.RecipeState,
+    modifier: Modifier = Modifier,
+    navigateToDetail: (Category) -> Unit
+) {
     val recipeViewModel: MainViewModel = viewModel()
-    val viewState by recipeViewModel.categoryState
 
     Box(modifier = Modifier.fillMaxSize()) {
         when {
@@ -44,7 +49,10 @@ fun RecipeScreen(modifier: Modifier = Modifier) {
                         .padding(16.dp)
                         .fillMaxWidth()
                 )
-                CategoryList(categories = viewState.list)
+                CategoryList(
+                    categories = viewState.list,
+                    navigateToDetail = navigateToDetail
+                )
             }
 
         }

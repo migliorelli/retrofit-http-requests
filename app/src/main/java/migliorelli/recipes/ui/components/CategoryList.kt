@@ -11,7 +11,7 @@ import migliorelli.recipes.models.Category
 import migliorelli.recipes.ui.components.CategoryItem
 
 @Composable
-fun CategoryList(categories: List<Category>) {
+fun CategoryList(categories: List<Category>, navigateToDetail: (Category) -> Unit) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         verticalArrangement = Arrangement.spacedBy(24.dp),
@@ -21,7 +21,9 @@ fun CategoryList(categories: List<Category>) {
             .padding(24.dp)
     ) {
         items(categories) {
-            CategoryItem(category = it)
+            CategoryItem(category = it, navigateToDetail = {
+                navigateToDetail(it)
+            })
         }
     }
 }
